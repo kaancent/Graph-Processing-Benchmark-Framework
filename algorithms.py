@@ -250,7 +250,8 @@ def pageRankEdgeCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
                 contributions[dest] += alpha * pageRanks[src] / outDegrees[src]
 
         danglingSum = sum(pageRanks[i] for i in range(vertexCount) if outDegrees[i] == 0)
-                
+
+        # Compute PageRank values
         newPR = []  
         for i in range(vertexCount):  
             res = contributions[i] + alpha * (danglingSum / vertexCount) + (1 - alpha) / vertexCount
