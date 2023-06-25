@@ -7,7 +7,7 @@ This is the code for my Graph Processing Benchmark Framework (GPBF) Bachelors' T
 The datasets used are taken from the Stanford Large Network Dataset Collection (SNAP).
 
 ## Usage 
-'''pytthon
-pyhon main.py
+```python
+python main.py
 
 The dataset willing to be used and the graph type(directed/undirected) can be changed in the main program.
