@@ -160,10 +160,7 @@ def dfsEdgeCentric(graph, startVertex):
             visited[neighbor] = True
 
     endTime = time.perf_counter()
-   
-    
     roundedTime = round(endTime - startTime, 5)
-    
     print("DFS (edge-centric) runtime: " + str(roundedTime) + " seconds")
 
     
@@ -216,9 +213,7 @@ def pageRankVertexCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
 
     endTime = time.perf_counter()
     roundedTime = round(endTime - startTime,5)
-
     print("PageRank (Vertex-centric) runtime:" + str(roundedTime)  +"seconds")
-
     return pageRanks
 
 
@@ -268,7 +263,6 @@ def pageRankEdgeCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
     endTime = time.perf_counter()
     roundedTime = round(endTime - startTime, 5)
     print("PageRank (Edge-Centric) runtime: " + str(roundedTime) + " seconds")
-    
     return pageRanks
 
 
