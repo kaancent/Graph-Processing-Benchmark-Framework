@@ -60,19 +60,19 @@ def bfsEdgeCentric(graph, startVertex):
         #Get the next edge to be explored
         edge = edgeQueue.get()
         
-        parent = edge[0]
-        neighbor = edge[1]
+        source = edge[0]
+        destination = edge[1]
         
-        if not visited[neighbor]:
+        if not visited[destination]:
             #print(edge)
-            neighborsOfNeighbor = graph.getNeighbors(neighbor) #sorted?
+            neighborsOfNeighbor = graph.getNeighbors(destination) #sorted?
             for nextNeighbor in neighborsOfNeighbor:
                 
                 #Exclude the parent vertex
-                if nextNeighbor != parent:
-                    edgeQueue.put((neighbor, nextNeighbor))
+                if nextNeighbor != source:
+                    edgeQueue.put((destination, nextNeighbor))
 
-            visited[neighbor] = True
+            visited[destination] = True
 
     endTime = time.perf_counter()
     roundedTime = round(endTime - startTime,5)
