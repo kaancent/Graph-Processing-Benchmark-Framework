@@ -179,7 +179,7 @@ def dfsEdgeCentric(graph, startVertex, printVisited = False):
 
     
     
-def pageRankVertexCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
+def pageRankVertexCentric(graph, alpha=0.85, tol=1e-6, iterations=10):
     """
      Parameters
     -----------
@@ -233,7 +233,7 @@ def pageRankVertexCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
 
 
 
-def pageRankEdgeCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
+def pageRankEdgeCentric(graph, alpha=0.85, tol=1e-6, iterations=10):
     """
     Parameters
     ----------
