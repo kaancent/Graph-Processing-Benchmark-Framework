@@ -71,7 +71,7 @@ def bfsEdgeCentric(graph, startVertex, printVisited = False):
         if not visited[destination]:
             if printVisited:
                 print("Visited edge: ", edge)
-            neighborsOfNeighbor = graph.getNeighbors(destination) #sorted?
+            neighborsOfNeighbor = graph.getNeighbors(destination)
             for nextNeighbor in neighborsOfNeighbor:
                 
                 #Exclude the parent vertex
