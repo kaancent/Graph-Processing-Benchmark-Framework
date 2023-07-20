@@ -2,12 +2,13 @@ import time
 from queue import Queue
 
 
-def bfsVertexCentric(graph, startVertex):
+def bfsVertexCentric(graph, startVertex, printVisited = False):
     """
     Parameters
     ----------
     graph: The graph to perform BFS(vertex-centric) on
     startVertex: Starting vertex of BFS
+    printVisited: For printing visited vertices
     """
     startTime = time.perf_counter()
     #To track visited vertices
@@ -20,6 +21,9 @@ def bfsVertexCentric(graph, startVertex):
 
     while not vertexQueue.empty():
         vertex = vertexQueue.get()
+        if printVisited:
+            print("Visited vertex: ", vertex)
+            
         #access the vertices using the function from graph representation class
         neighbors = graph.getNeighbors(vertex)
         for i in neighbors:
@@ -35,12 +39,13 @@ def bfsVertexCentric(graph, startVertex):
     
     
   
-def bfsEdgeCentric(graph, startVertex):                         
+def bfsEdgeCentric(graph, startVertex, printVisited = False):                         
     """
     Parameters
     ----------
     graph: The graph to perform BFS(edge-centric) on
     startVertex: Starting vertex of BFS
+    printVisited: For printing visited edges
     """
     startTime = time.perf_counter()
     #To track visited vertices
@@ -57,14 +62,15 @@ def bfsEdgeCentric(graph, startVertex):
     visited[startVertex] = True
 
     while not edgeQueue.empty():
-        #Get the next edge to be explored
+        #Get the next edge to be explored /destination
         edge = edgeQueue.get()
         
         source = edge[0]
         destination = edge[1]
         
         if not visited[destination]:
-            #print(edge)
+            if printVisited:
+                print("Visited edge: ", edge)
             neighborsOfNeighbor = graph.getNeighbors(destination) #sorted?
             for nextNeighbor in neighborsOfNeighbor:
                 
@@ -81,12 +87,13 @@ def bfsEdgeCentric(graph, startVertex):
     
 
 
-def dfsVertexCentric(graph, startVertex):
+def dfsVertexCentric(graph, startVertex, printVisited = False):
     """
     Parameters
     ----------
     graph: The graph to perform DFS(vertex-centric) on
-    startVertex: Starting vertex of DFS """
+    startVertex: Starting vertex of DFS 
+    printVisited: For printing visited vertices"""
     startTime = time.perf_counter()
     
     #init list for visited vertices
@@ -101,31 +108,35 @@ def dfsVertexCentric(graph, startVertex):
     while vertexStack:
         
         vertex = vertexStack.pop()
-        # print(vertex)
+        
+        if printVisited:
+            print("Visited vertex: ", vertex)
         
         #Get the neighbors of current vertex
         neighbors = graph.getNeighbors(vertex)
         
         #Visit the neighbors in reverse order
         for i in neighbors:
-            #print(vertex)
+            
             if not visited[i]:
                 # Add the neighbor to the stack and mark it as visited
 
                 vertexStack.append(i)
                 visited[i] = True
+                
 
     endTime = time.perf_counter()
     roundedTime = round(endTime - startTime, 5)
     print("DFS (vertex-centric) runtime: " + str(roundedTime) + " seconds")
 
 
-def dfsEdgeCentric(graph, startVertex):
+def dfsEdgeCentric(graph, startVertex, printVisited = False):
     """
     Parameters
     ----------
     graph: The graph to perform DFS(vertex-centric) on
-    startVertex: Starting vertex of DFS """
+    startVertex: Starting vertex of DFS 
+    printVisited: For printing visited edges"""
     
     startTime = time.perf_counter()
     visited = [False] * graph.numVertices
@@ -142,7 +153,10 @@ def dfsEdgeCentric(graph, startVertex):
 
     while edgeStack:
         edge = edgeStack.pop()
-        #print(edge)
+        
+        if printVisited:
+            print("Visited edge: ", edge)
+                
         #Get parent vertex and its neighbor from the edge
         parent = edge[0]
         neighbor = edge[1]
@@ -177,7 +191,6 @@ def pageRankVertexCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
     # Measure start time for execution profiling
     startTime = time.perf_counter()
    
-
     # Number of vertices in the graph
     vertexCount = graph.numVertices
 
@@ -213,7 +226,9 @@ def pageRankVertexCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
 
     endTime = time.perf_counter()
     roundedTime = round(endTime - startTime,5)
+
     print("PageRank (Vertex-centric) runtime:" + str(roundedTime)  +"seconds")
+
     return pageRanks
 
 
@@ -238,6 +253,7 @@ def pageRankEdgeCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
     # Calculate outdegree for each vertex
     outDegrees = [len(graph.getNeighbors(v)) for v in range(vertexCount)]
     edgeList = graph.getEdges()
+    
 
     for _ in range(iterations):
         # Reset contributions for each iteration
@@ -250,8 +266,7 @@ def pageRankEdgeCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
                 contributions[dest] += alpha * pageRanks[src] / outDegrees[src]
 
         danglingSum = sum(pageRanks[i] for i in range(vertexCount) if outDegrees[i] == 0)
-
-        # Compute PageRank values
+                
         newPR = []  
         for i in range(vertexCount):  
             res = contributions[i] + alpha * (danglingSum / vertexCount) + (1 - alpha) / vertexCount
@@ -264,6 +279,7 @@ def pageRankEdgeCentric(graph, alpha=0.85, tol=1e-6, iterations=100):
     endTime = time.perf_counter()
     roundedTime = round(endTime - startTime, 5)
     print("PageRank (Edge-Centric) runtime: " + str(roundedTime) + " seconds")
+    
     return pageRanks
 
 
